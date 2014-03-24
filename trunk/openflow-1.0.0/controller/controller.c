@@ -32,7 +32,7 @@
  */
 
 #include <config.h>
-
+#include <stdio.h>
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
@@ -102,11 +102,12 @@ main(int argc, char *argv[])
     }
 
     n_switches = n_listeners = 0;
+
     for (i = optind; i < argc; i++) {
+
         const char *name = argv[i];
         struct vconn *vconn;
         int retval;
-
         retval = vconn_open(name, OFP_VERSION, &vconn);
         if (!retval) {
             if (n_switches >= MAX_SWITCHES) {
@@ -127,7 +128,12 @@ main(int argc, char *argv[])
         if (retval) {
             VLOG_ERR("%s: connect: %s", name, strerror(retval));
         }
+        printf("%s-%u ---==== name = %s ====--- \n",__FILE__,__LINE__,argv[i]);
+		printf("%s-%u ---==== n_switches = %d ====--- \n",__FILE__,__LINE__,n_switches);
+		printf("%s-%u ---==== n_listeners = %d ====--- \n",__FILE__,__LINE__,n_listeners);
     }
+
+
     if (n_switches == 0 && n_listeners == 0) {
         ofp_fatal(0, "no active or passive switch connections");
     }
@@ -209,6 +215,7 @@ main(int argc, char *argv[])
 static void
 new_switch(struct switch_ *sw, struct vconn *vconn, const char *name)
 {
+	//printf("%s-%u ---==== new_switch name = %s, %s ====--- \n",__FILE__,__LINE__,vconn->name,name);
     sw->rconn = rconn_new_from_vconn(name, vconn);
     sw->lswitch = lswitch_create(sw->rconn, learn_macs,
                                  setup_flows ? max_idle : -1);

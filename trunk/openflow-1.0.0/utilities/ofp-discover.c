@@ -102,7 +102,7 @@ main(int argc, char *argv[])
         ofp_fatal(0, "need at least one non-option argument; "
                   "use --help for usage");
     }
-
+    printf("%s-%u ---==== set_program_name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
     ifaces = xmalloc(argc * sizeof *ifaces);
     n_ifaces = 0;
     for (i = 0; i < argc; i++) {

@@ -66,7 +66,7 @@ main(int argc, char *argv[])
     time_init();
     vlog_init();
     parse_options(argc, argv);
-
+    printf("%s-%u ---==== set_program_name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
     argc -= optind;
     argv += optind;
     if (argc < 1) {

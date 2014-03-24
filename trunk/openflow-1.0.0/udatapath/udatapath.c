@@ -97,6 +97,9 @@ main(int argc, char *argv[])
     }
 
     error = dp_new(&dp, dpid);
+    printf("%s-%u ---==== set_program_name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
+	printf("%s-%u ---==== dpid = %d ====--- \n",__FILE__,__LINE__,dpid);
+
 
     n_listeners = 0;
     for (i = optind; i < argc; i++) {
@@ -112,6 +115,7 @@ main(int argc, char *argv[])
             ofp_error(retval, "opening %s", pvconn_name);
         }
     }
+    printf("%s-%u ---==== n_listeners = %d ====--- \n",__FILE__,__LINE__,n_listeners);
     if (!n_listeners) {
         ofp_fatal(0, "could not listen for any connections");
     }

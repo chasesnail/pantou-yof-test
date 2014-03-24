@@ -1,0 +1,11 @@
+secchan/yof_kernel.o: secchan/yof_kernel.c secchan/yof_kernel.h secchan/yof_config.h\
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/stdio.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/dlfcn.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/string.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/netinet/in.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/time.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/sys/time.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/errno.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/sys/epoll.h \
+/home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/fcntl.h \
+/home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/unistd.h \

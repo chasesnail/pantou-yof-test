@@ -70,6 +70,11 @@
 #include "vlog-socket.h"
 
 #include "vlog.h"
+
+//YOF Header Files
+#include "yof_config.h"
+
+
 #define THIS_MODULE VLM_secchan
 
 struct hook {
@@ -102,6 +107,7 @@ static void relay_destroy(struct relay *);
 int
 main(int argc, char *argv[])
 {
+	printf("%s-%u ---==== set_program_name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
     struct settings s;
 
     struct list relays = LIST_INITIALIZER(&relays);
@@ -138,6 +144,7 @@ main(int argc, char *argv[])
     for (i = 0; i < s.n_listeners; i++) {
         listeners[n_listeners++] = open_passive_vconn(s.listener_names[i]);
     }
+
     monitor = s.monitor_name ? open_passive_vconn(s.monitor_name) : NULL;
 
     /* Initialize switch status hook. */
@@ -182,6 +189,9 @@ main(int argc, char *argv[])
         async_rconn = NULL;
     }
 
+    printf("%s-%u ---==== name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
+	printf("%s-%u ---==== local_rconn_name = %s ====--- \n",__FILE__,__LINE__,s.dp_name);
+	printf("%s-%u ---==== n_listeners = %d ====--- \n",__FILE__,__LINE__,n_listeners);
     /* Connect to datapath without a subscription, for requests and replies. */
     local_rconn_name = vconn_name_without_subscription(s.dp_name);
     local_rconn = rconn_create(0, s.max_backoff);
@@ -189,6 +199,15 @@ main(int argc, char *argv[])
     free(local_rconn_name);
     switch_status_register_category(switch_status, "local",
                                     rconn_status_cb, local_rconn);
+
+    /* start up yof platform */
+    if(yof_start()==-1){
+    	printf("%s-%u ---==== YOF startup failed ====--- \n",__FILE__,__LINE__);
+    }
+    else{
+    	printf("%s-%u ---==== YOF started ! ====--- \n",__FILE__,__LINE__);
+    }
+
 
     /* Connect to controller. */
     remote_rconn = rconn_create(s.probe_interval, s.max_backoff);
@@ -880,3 +899,33 @@ usage(void)
     leak_checker_usage();
     exit(EXIT_SUCCESS);
 }
+
+/////////////////////////////////////////////////////////////////////////////////
+////////////// YY          YY       OOOO         FFFFFFFFFFFFFF /////////////////
+//////////////  YY        YY      OO    OO       FF             /////////////////
+//////////////   YY      YY      OO      OO      FF             /////////////////
+//////////////    YY    YY      OO        OO     FF             /////////////////
+//////////////     YY  YY      OO          OO    FF             /////////////////
+//////////////      YYYY       OO          OO    FFFFFFFFFFF    /////////////////
+//////////////       YY        OO          OO    FF             /////////////////
+//////////////       YY        OO          OO    FF             /////////////////
+//////////////       YY         OO        OO     FF             /////////////////
+//////////////       YY          OO      OO      FF             /////////////////
+//////////////       YY           OO    OO       FF             /////////////////
+//////////////       YY             OOOO         FF             /////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+
+int yof_start(){
+	s32 ret;
+	u32 ulIndex;
+	u8* pTag;
+	ret = yof_init();
+	if(SRV_OK != ret)
+	{
+		printf("%s-%u:yof_init failed.\r\n",__FILE__,__LINE__);//There is a TCP client connected
+		return -1;
+	}
+	return 0;
+}
+

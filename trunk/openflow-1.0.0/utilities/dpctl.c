@@ -109,14 +109,14 @@ int main(int argc, char *argv[])
     set_program_name(argv[0]);
     time_init();
     vlog_init();
-    parse_options(argc, argv, &s);
+    parse_options(argc, argv, &s);//
     signal(SIGPIPE, SIG_IGN);
 
     argc -= optind;
     argv += optind;
     if (argc < 1)
         ofp_fatal(0, "missing command name; use --help for help");
-
+    printf("%s-%u ---==== set_program_name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
     for (p = all_commands; p->name != NULL; p++) {
         if (!strcmp(p->name, argv[0])) {
             int n_arg = argc - 1;

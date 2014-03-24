@@ -140,6 +140,8 @@ add_all_targets(struct vlog_client ***clients, size_t *n_clients, bool *ok)
 
 int main(int argc, char *argv[])
 {
+
+
     static const struct option long_options[] = {
         /* Target options must come first. */
         {"all", no_argument, NULL, 'a'},
@@ -161,6 +163,7 @@ int main(int argc, char *argv[])
     size_t n_clients = 0;
 
     set_program_name(argv[0]);
+    printf("%s-%u ---==== set_program_name = %s ====--- \n",__FILE__,__LINE__,argv[0]);
     time_init();
 
     short_options = long_options_to_short_options(long_options);
