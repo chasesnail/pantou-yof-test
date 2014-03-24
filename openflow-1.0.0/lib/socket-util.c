@@ -267,6 +267,7 @@ make_unix_socket(int style, bool nonblock, bool passcred UNUSED,
         struct sockaddr_un un;
         socklen_t un_len;
         make_sockaddr_un(bind_path, &un, &un_len);
+	printf("bind_path = %s \n", bind_path);
         if (unlink(un.sun_path) && errno != ENOENT) {
             VLOG_WARN("unlinking \"%s\": %s\n", un.sun_path, strerror(errno));
         }
@@ -281,6 +282,7 @@ make_unix_socket(int style, bool nonblock, bool passcred UNUSED,
         struct sockaddr_un un;
         socklen_t un_len;
         make_sockaddr_un(connect_path, &un, &un_len);
+	printf("connect_path = %s \n", connect_path);
         if (connect(fd, (struct sockaddr*) &un, un_len)
             && errno != EINPROGRESS) {
             goto error;

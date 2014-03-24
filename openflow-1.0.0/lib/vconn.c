@@ -197,7 +197,7 @@ vconn_open(const char *name, int min_version, struct vconn **vconnp)
 {
     size_t prefix_len;
     size_t i;
-
+    printf("%s-%u ---==== vconn_open name = %s ====--- \n",__FILE__,__LINE__,name);
     check_vconn_classes();
 
     *vconnp = NULL;
@@ -230,7 +230,7 @@ vconn_open_block(const char *name, int min_version, struct vconn **vconnp)
 {
     struct vconn *vconn;
     int error;
-
+    printf("%s-%u ---==== vconn_open_block name = %s ====--- \n",__FILE__,__LINE__,name);
     error = vconn_open(name, min_version, &vconn);
     while (error == EAGAIN) {
         vconn_connect_wait(vconn);
@@ -645,7 +645,7 @@ void
 vconn_wait(struct vconn *vconn, enum vconn_wait_type wait)
 {
     assert(wait == WAIT_CONNECT || wait == WAIT_RECV || wait == WAIT_SEND);
-
+//    printf("%s-%u ---==== vconn_wait name = %s ====--- \n",__FILE__,__LINE__,vconn->name);
     switch (vconn->state) {
     case VCS_CONNECTING:
         wait = WAIT_CONNECT;
@@ -673,6 +673,7 @@ vconn_wait(struct vconn *vconn, enum vconn_wait_type wait)
 void
 vconn_connect_wait(struct vconn *vconn)
 {
+	printf("%s-%u ---==== vconn_connect_wait name = %s ====--- \n",__FILE__,__LINE__,vconn->name);
     vconn_wait(vconn, WAIT_CONNECT);
 }
 
@@ -868,6 +869,7 @@ update_openflow_length(struct ofpbuf *buffer)
 struct ofpbuf *
 make_flow_mod(uint16_t command, const struct flow *flow, size_t actions_len)
 {
+	printf("%s-%u ---==== make_flow_mod ====--- \n",__FILE__,__LINE__);
     struct ofp_flow_mod *ofm;
     size_t size = sizeof *ofm + actions_len;
     struct ofpbuf *out = ofpbuf_new(size);
@@ -895,6 +897,7 @@ struct ofpbuf *
 make_add_flow(const struct flow *flow, uint32_t buffer_id,
               uint16_t idle_timeout, size_t actions_len)
 {
+	printf("%s-%u ---==== make_add_flow ====--- \n",__FILE__,__LINE__);
     struct ofpbuf *out = make_flow_mod(OFPFC_ADD, flow, actions_len);
     struct ofp_flow_mod *ofm = out->data;
     ofm->idle_timeout = htons(idle_timeout);
@@ -906,6 +909,7 @@ make_add_flow(const struct flow *flow, uint32_t buffer_id,
 struct ofpbuf *
 make_del_flow(const struct flow *flow)
 {
+	printf("%s-%u ---==== make_del_flow ====--- \n",__FILE__,__LINE__);
     struct ofpbuf *out = make_flow_mod(OFPFC_DELETE_STRICT, flow, 0);
     struct ofp_flow_mod *ofm = out->data;
     ofm->out_port = htons(OFPP_NONE);
@@ -917,6 +921,7 @@ make_add_simple_flow(const struct flow *flow,
                      uint32_t buffer_id, uint16_t out_port,
                      uint16_t idle_timeout)
 {
+	printf("%s-%u ---==== make_add_simple_flow ====--- \n",__FILE__,__LINE__);
     struct ofp_action_output *oao;
     struct ofpbuf *buffer = make_add_flow(flow, buffer_id, idle_timeout,
                                           sizeof *oao);

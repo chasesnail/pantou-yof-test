@@ -157,12 +157,18 @@ controller_controller_OBJECTS = $(am_controller_controller_OBJECTS)
 am__DEPENDENCIES_1 =
 controller_controller_DEPENDENCIES = lib/libopenflow.a \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am_secchan_ofprotocol_OBJECTS = secchan/discovery.$(OBJEXT) \
-	secchan/emerg-flow.$(OBJEXT) secchan/fail-open.$(OBJEXT) \
-	secchan/failover.$(OBJEXT) secchan/in-band.$(OBJEXT) \
-	secchan/port-watcher.$(OBJEXT) secchan/protocol-stat.$(OBJEXT) \
-	secchan/ratelimit.$(OBJEXT) secchan/secchan.$(OBJEXT) \
-	secchan/status.$(OBJEXT) secchan/stp-secchan.$(OBJEXT)
+am_secchan_ofprotocol_OBJECTS = secchan/lnx_task.$(OBJEXT) \
+	secchan/lnx_msq.$(OBJEXT) secchan/lnx_socket.$(OBJEXT) \
+	secchan/lnx_mutex.$(OBJEXT) secchan/srv_trace.$(OBJEXT) \
+	secchan/srv_task.$(OBJEXT) secchan/srv_buffer.$(OBJEXT) \
+	secchan/srv_bitmap.$(OBJEXT) secchan/yof_config.$(OBJEXT) \
+	secchan/yof_udp.$(OBJEXT) secchan/yof_kernel.$(OBJEXT) \
+	secchan/discovery.$(OBJEXT) secchan/emerg-flow.$(OBJEXT) \
+	secchan/fail-open.$(OBJEXT) secchan/failover.$(OBJEXT) \
+	secchan/in-band.$(OBJEXT) secchan/port-watcher.$(OBJEXT) \
+	secchan/protocol-stat.$(OBJEXT) secchan/ratelimit.$(OBJEXT) \
+	secchan/secchan.$(OBJEXT) secchan/status.$(OBJEXT) \
+	secchan/stp-secchan.$(OBJEXT)
 secchan_ofprotocol_OBJECTS = $(am_secchan_ofprotocol_OBJECTS)
 secchan_ofprotocol_DEPENDENCIES = lib/libopenflow.a \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
@@ -333,7 +339,7 @@ ECHO_N = -n
 ECHO_T = 
 EGREP = /bin/grep -E
 EXEEXT = 
-FAULT_LIBS = -ldl
+FAULT_LIBS = -ldl -lpthread -static
 GREP = /bin/grep
 HW_TABLES = 
 INSTALL = /usr/bin/install -c
@@ -342,7 +348,7 @@ INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 KARCH = 
-LDFLAGS = -L/home/flowvisor/ofwrt/backfire/staging_dir/target-mipsel_uClibc-0.9.30.1/usr/lib -L/home/flowvisor/ofwrt/backfire/staging_dir/target-mipsel_uClibc-0.9.30.1/lib -L/home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib 
+LDFLAGS = -L/home/flowvisor/ofwrt/backfire/staging_dir/target-mipsel_uClibc-0.9.30.1/usr/lib -L/home/flowvisor/ofwrt/backfire/staging_dir/target-mipsel_uClibc-0.9.30.1/lib -L/home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib -lpthread -static 
 LIBOBJS = 
 LIBS = 
 LOGDIR = ${localstatedir}/log/${PACKAGE}
@@ -480,6 +486,28 @@ lib_libopenflow_a_SOURCES = lib/backtrace.c lib/backtrace.h \
 	lib/xtoxll.h $(am__append_3) $(am__append_4)
 #nodist_lib_libopenflow_a_SOURCES = lib/dhparams.c
 secchan_ofprotocol_SOURCES = \
+	secchan/lnx_msq.c \
+	secchan/lnx_mutex.c \
+	secchan/lnx_socket.c \
+	secchan/lnx_task.c \
+	secchan/srv_bitmap.c \
+	secchan/srv_bitmap.h \
+	secchan/srv_buffer.c \
+	secchan/srv_buffer.h \
+	secchan/srv_common.h \
+	secchan/srv_list.h \
+	secchan/srv_mutex.h \
+	secchan/srv_socket.h \
+	secchan/srv_task.c \
+	secchan/srv_task.h \
+	secchan/srv_trace.c \
+	secchan/srv_trace.h \
+	secchan/yof_config.c \
+	secchan/yof_config.h \
+	secchan/yof_kernel.c \
+	secchan/yof_kernel.h \
+	secchan/yof_udp.c \
+	secchan/yof_udp.h \
 	secchan/discovery.c \
 	secchan/discovery.h \
 	secchan/emerg-flow.c \
@@ -501,7 +529,8 @@ secchan_ofprotocol_SOURCES = \
 	secchan/status.c \
 	secchan/status.h \
 	secchan/stp-secchan.c \
-	secchan/stp-secchan.h
+	secchan/stp-secchan.h \
+
 
 secchan_ofprotocol_LDADD = lib/libopenflow.a $(FAULT_LIBS) $(SSL_LIBS)
 commandsdir = ${pkgdatadir}/commands
@@ -784,12 +813,36 @@ secchan/protocol-stat.$(OBJEXT): secchan/$(am__dirstamp) \
 	secchan/$(DEPDIR)/$(am__dirstamp)
 secchan/ratelimit.$(OBJEXT): secchan/$(am__dirstamp) \
 	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/lnx_msq.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/lnx_mutex.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/lnx_socket.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/lnx_task.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/yof_config.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/yof_kernel.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/yof_udp.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)	
+secchan/srv_bitmap.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/srv_buffer.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/srv_task.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
+secchan/srv_trace.$(OBJEXT): secchan/$(am__dirstamp) \
+	secchan/$(DEPDIR)/$(am__dirstamp)
 secchan/secchan.$(OBJEXT): secchan/$(am__dirstamp) \
 	secchan/$(DEPDIR)/$(am__dirstamp)
 secchan/status.$(OBJEXT): secchan/$(am__dirstamp) \
 	secchan/$(DEPDIR)/$(am__dirstamp)
 secchan/stp-secchan.$(OBJEXT): secchan/$(am__dirstamp) \
 	secchan/$(DEPDIR)/$(am__dirstamp)
+
+
 secchan/ofprotocol$(EXEEXT): $(secchan_ofprotocol_OBJECTS) $(secchan_ofprotocol_DEPENDENCIES) secchan/$(am__dirstamp)
 	@rm -f secchan/ofprotocol$(EXEEXT)
 	$(LINK) $(secchan_ofprotocol_OBJECTS) $(secchan_ofprotocol_LDADD) $(LIBS)
@@ -1083,6 +1136,17 @@ mostlyclean-compile:
 	-rm -f secchan/secchan.$(OBJEXT)
 	-rm -f secchan/status.$(OBJEXT)
 	-rm -f secchan/stp-secchan.$(OBJEXT)
+	-rm -f secchan/lnx_msq.$(OBJEXT)
+	-rm -f secchan/lnx_task.$(OBJEXT)
+	-rm -f secchan/lnx_mutex.$(OBJEXT)
+	-rm -f secchan/lnx_socket.$(OBJEXT)
+	-rm -f secchan/srv_bitmap.$(OBJEXT)
+	-rm -f secchan/srv_buffer.$(OBJEXT)
+	-rm -f secchan/srv_task.$(OBJEXT)
+	-rm -f secchan/srv_trace.$(OBJEXT)
+	-rm -f secchan/yof_kernel.$(OBJEXT)
+	-rm -f secchan/yof_udp.$(OBJEXT)
+	-rm -f secchan/yof_config.$(OBJEXT)
 	-rm -f tests/test-dhcp-client.$(OBJEXT)
 	-rm -f tests/test-flows.$(OBJEXT)
 	-rm -f tests/test-hmap.$(OBJEXT)
@@ -1156,6 +1220,17 @@ include lib/$(DEPDIR)/vconn-unix.Po
 include lib/$(DEPDIR)/vconn.Po
 include lib/$(DEPDIR)/vlog-socket.Po
 include lib/$(DEPDIR)/vlog.Po
+include secchan/$(DEPDIR)/lnx_msq.Po
+include secchan/$(DEPDIR)/lnx_task.Po
+include secchan/$(DEPDIR)/lnx_mutex.Po
+include secchan/$(DEPDIR)/lnx_socket.Po
+include secchan/$(DEPDIR)/srv_bitmap.Po
+include secchan/$(DEPDIR)/srv_buffer.Po
+include secchan/$(DEPDIR)/srv_task.Po
+include secchan/$(DEPDIR)/srv_trace.Po
+include secchan/$(DEPDIR)/yof_kernel.Po
+include secchan/$(DEPDIR)/yof_udp.Po
+include secchan/$(DEPDIR)/yof_config.Po
 include secchan/$(DEPDIR)/discovery.Po
 include secchan/$(DEPDIR)/emerg-flow.Po
 include secchan/$(DEPDIR)/fail-open.Po

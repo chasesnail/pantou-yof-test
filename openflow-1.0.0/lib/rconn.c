@@ -157,6 +157,7 @@ static bool is_admitted_msg(const struct ofpbuf *);
 struct rconn *
 rconn_new(const char *name, int inactivity_probe_interval, int max_backoff)
 {
+	printf("%s-%u ---==== rconn_new name = %s ====--- \n",__FILE__,__LINE__,name);
     struct rconn *rc = rconn_create(inactivity_probe_interval, max_backoff);
     rconn_connect(rc, name);
     return rc;
@@ -166,6 +167,7 @@ rconn_new(const char *name, int inactivity_probe_interval, int max_backoff)
 struct rconn *
 rconn_new_from_vconn(const char *name, struct vconn *vconn) 
 {
+	printf("%s-%u ---==== rconn_new_from_vconn name = %s %s ====--- \n",__FILE__,__LINE__,vconn->name,name);
     struct rconn *rc = rconn_create(60, 0);
     rconn_connect_unreliably(rc, name, vconn);
     return rc;
@@ -187,6 +189,8 @@ struct rconn *
 rconn_create(int probe_interval, int max_backoff)
 {
     struct rconn *rc = xcalloc(1, sizeof *rc);
+
+    printf("%s-%u ---==== rconn_create ====--- \n",__FILE__,__LINE__);//SOCK_STREAM
 
     rc->state = S_VOID;
     rc->state_entered = time_now();
@@ -233,6 +237,7 @@ rconn_create(int probe_interval, int max_backoff)
 int
 rconn_connect(struct rconn *rc, const char *name)
 {
+	printf("%s-%u ---==== rconn_connect name = %s ====--- \n",__FILE__,__LINE__,name);
     rconn_disconnect(rc);
     free(rc->name);
     rc->name = xstrdup(name);
@@ -307,7 +312,7 @@ static int
 reconnect(struct rconn *rc)
 {
     int retval;
-
+    printf("%s-%u ---==== reconnect name = %s ====--- \n",__FILE__,__LINE__,rc->name);//recv
     VLOG_INFO("%s: connecting...", rc->name);
     rc->n_attempted_connections++;
     retval = vconn_open(rc->name, OFP_VERSION, &rc->vconn);
@@ -486,6 +491,7 @@ rconn_recv(struct rconn *rc)
             }
             rc->last_received = time_now();
             rc->packets_received++;
+            printf("%s-%u ---==== of packet received = %s ====--- \n",__FILE__,__LINE__,rc->name);
             ofpstat_inc_protocol_stat(&rc->ofps_rcvd, h);
             if (rc->state == S_IDLE) {
                 /* Check liveliness of a peer. */
@@ -809,14 +815,14 @@ disconnect(struct rconn *rc, int error)
 
         if (rc->state & (S_CONNECTING | S_ACTIVE | S_IDLE)) {
             if (error > 0) {
-                VLOG_WARN("%s: connection dropped (%s)",
+                VLOG_WARN("%s: connection dropped!! (%s)",
                           rc->name, strerror(error));
             } else if (error == EOF) {
                 if (rc->reliable) {
                     VLOG_INFO("%s: connection closed by peer", rc->name);
                 }
             } else {
-                VLOG_INFO("%s: connection dropped", rc->name);
+                VLOG_INFO("%s: connection dropped!!", rc->name);
             }
             vconn_close(rc->vconn);
             rc->vconn = NULL;

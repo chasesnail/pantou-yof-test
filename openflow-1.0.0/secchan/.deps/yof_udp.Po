@@ -1,0 +1,5 @@
+secchan/yof_udp.o: secchan/yof_udp.c secchan/yof_udp.h secchan/yof_kernel.h\
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/stdio.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/stddef.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/sys/epoll.h \
+  /home/flowvisor/ofwrt/backfire/staging_dir/toolchain-mipsel_gcc-4.3.3+cs_uClibc-0.9.30.1/lib/gcc/mipsel-openwrt-linux-uclibc/4.3.3/../../../../mipsel-openwrt-linux-uclibc/sys-include/netinet/in.h \
